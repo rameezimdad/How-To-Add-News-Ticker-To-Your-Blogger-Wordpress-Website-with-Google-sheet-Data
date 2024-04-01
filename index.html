@@ -1,0 +1,64 @@
+<header>
+<div id="marquee-cont">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="50px" style="background:#1174A8;">
+        <button id="ticker-title">LATEST NEWS:</button>
+      </td>
+      <td id="marquee">
+        <marquee onmouseover="this.stop();" onmouseout="this.start();" id="scroll"></marquee>
+      </td>
+    </tr>
+  </table>
+</div>
+</header>
+<style>
+  #marquee-cont {
+  background: #f4f4f4;
+  margin-top:10px;
+}
+#marquee-cont marquee {
+  margin-top: 5px;
+}
+#marquee-news {
+  
+  background: #1174A8;
+  padding: 5px;
+}
+#ticker-title{
+  border:none;
+  padding:5px 20px;
+  background:#1174A8;
+  color:white;
+}
+#ticker-title:focus{
+  outline:none;
+}
+</style>
+<script>
+  // Function to fetch data from Google Apps Script
+  function fetchData() {
+    fetch('// YOUR SCRIPT ID //', {
+      method: 'POST'
+    })
+    .then(response => response.json())
+    .then(news => {
+      let tickerText = '';
+      const logo = "<img src='/// LOGO PNG URL ///' width='25px' style='margin:0 8px'/>";
+      
+      // Loop through the news data and construct ticker text
+      news.forEach((item, index) => {
+        tickerText += item;
+        if (index !== news.length - 1) {
+          tickerText += logo;
+        }
+      });
+
+      document.getElementById("scroll").innerHTML = tickerText;
+    })
+    .catch(error => console.error('Error fetching data:', error));
+  }
+
+  // Call fetchData function when the page loads
+  fetchData();
+</script>
